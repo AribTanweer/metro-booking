@@ -222,6 +222,7 @@ function ComparisonBar({ icon, label, value, max, unit = '', color, isBest }) {
 }
 
 function RouteCard({ route, isRecommended, isSelected, onSelect }) {
+    const { getStationById } = useMetroData();
     return (
         <div
             className={`route-card card animate-fade-in ${isSelected ? 'route-card-selected' : ''} ${isRecommended ? 'route-card-recommended' : ''}`}
