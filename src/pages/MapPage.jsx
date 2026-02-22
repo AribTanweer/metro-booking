@@ -19,6 +19,7 @@ export default function MapPage() {
     const [highlightRoute, setHighlightRoute] = useState(null);
     const [routeInfo, setRouteInfo] = useState(null);
     const [focusedStation, setFocusedStation] = useState(null);
+    const [bookingSource, setBookingSource] = useState(null);
     useEffect(() => {
         if (location.state?.highlightedRoute) {
             setHighlightRoute(location.state.highlightedRoute);
@@ -43,8 +44,27 @@ export default function MapPage() {
     }, [toast]);
 
     const handleStationClick = useCallback((station) => {
-        setSelectedStation(station);
-    }, []);
+        if (bookingSource) {
+            // User selected destination
+            if (station.id === bookingSource.id) {
+                toast.error("Destination must be different from source");
+                return;
+            }
+            navigate('/', { state: { source: bookingSource, destination: station } });
+        } else {
+            setSelectedStation(station);
+        }
+    }, [bookingSource, navigate, toast]);
+
+    const handleBookFromMap = useCallback((station) => {
+        setBookingSource(station);
+        setSelectedStation(null); // hide panel to let user click the map
+        toast.info(`Select destination station on the map`);
+    }, [toast]);
+
+    const handleCancelBookingMode = () => {
+        setBookingSource(null);
+    };
 
     return (
         <div className="map-page">
@@ -56,10 +76,10 @@ export default function MapPage() {
                 />
             </div>
 
-            {}
+            { }
             <MapSearch onStationSelect={handleSearchSelect} />
 
-            {}
+            { }
             {routeInfo && (
                 <div className="map-route-banner animate-fade-in">
                     <div className="banner-info">
@@ -91,10 +111,30 @@ export default function MapPage() {
                 </div>
             )}
 
-            {selectedStation && (
+            {bookingSource && !routeInfo && (
+                <div className="map-route-banner animate-fade-in" style={{ borderColor: 'var(--primary)', borderLeft: '4px solid var(--primary)' }}>
+                    <div className="banner-info">
+                        <span className="banner-label" style={{ color: 'var(--primary)' }}>Booking Mode</span>
+                        <span className="banner-route">
+                            From: {bookingSource.name}
+                        </span>
+                        <span className="banner-meta">
+                            Please select a destination station on the map...
+                        </span>
+                    </div>
+                    <div className="banner-actions">
+                        <button className="btn btn-outline btn-sm" onClick={handleCancelBookingMode}>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {selectedStation && !bookingSource && (
                 <StationPanel
                     station={selectedStation}
                     onClose={() => setSelectedStation(null)}
+                    onBookFrom={handleBookFromMap}
                 />
             )}
         </div>
