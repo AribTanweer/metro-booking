@@ -3,28 +3,15 @@
  * Metro line management interface.
  */
 import { useState } from 'react';
-import { ChevronDown, ChevronRight, GripVertical, Plus, X, AlertTriangle } from 'lucide-react';
-import { METRO_LINES, STATIONS } from '../../data/metroData';
+import { ChevronDown, ChevronRight, GripVertical, X, AlertTriangle } from 'lucide-react';
+import { useAdminData } from './AdminContext';
 import './LineManager.css';
 
 export default function LineManager() {
-    const [lines, setLines] = useState(() => {
-        return Object.entries(METRO_LINES).map(([id, line]) => ({
-            ...line,
-            id,
-            stations: line.stations.map(sId => ({
-                id: sId,
-                name: STATIONS[sId]?.name || sId,
-                isInterchange: STATIONS[sId]?.isInterchange || false,
-            })),
-        }));
-    });
-
+    const { lines, setLines } = useAdminData();
     const [expandedLine, setExpandedLine] = useState(null);
     const [draggedItem, setDraggedItem] = useState(null);
     const [dragOverItem, setDragOverItem] = useState(null);
-    const [newStationInput, setNewStationInput] = useState('');
-    const [addingToLine, setAddingToLine] = useState(null);
 
     const toggleLine = (lineId) => {
         setExpandedLine(expandedLine === lineId ? null : lineId);
@@ -54,43 +41,11 @@ export default function LineManager() {
     };
 
     const removeStation = (lineId, stationIndex) => {
-        setLines(prev => prev.map(line => {
+        setLines(lines.map(line => {
             if (line.id !== lineId) return line;
             const newStations = line.stations.filter((_, i) => i !== stationIndex);
             return { ...line, stations: newStations };
         }));
-    };
-
-    const addStation = (lineId) => {
-        if (!newStationInput.trim()) return;
-        const stationId = newStationInput.toLowerCase().replace(/\s+/g, '-');
-        const name = newStationInput.trim();
-        const existsOnOtherLine = lines.some(
-            l => l.id !== lineId && l.stations.some(s => s.id === stationId)
-        );
-
-        setLines(prev => prev.map(line => {
-            if (line.id !== lineId) return line;
-            return {
-                ...line,
-                stations: [...line.stations, {
-                    id: stationId,
-                    name,
-                    isInterchange: existsOnOtherLine,
-                }],
-            };
-        }));
-        if (existsOnOtherLine) {
-            setLines(prev => prev.map(line => ({
-                ...line,
-                stations: line.stations.map(s =>
-                    s.id === stationId ? { ...s, isInterchange: true } : s
-                ),
-            })));
-        }
-
-        setNewStationInput('');
-        setAddingToLine(null);
     };
 
     return (
@@ -113,8 +68,8 @@ export default function LineManager() {
                                 <div
                                     key={`${station.id}-${index}`}
                                     className={`station-row ${dragOverItem?.lineId === line.id && dragOverItem?.index === index
-                                            ? 'station-row-dragover'
-                                            : ''
+                                        ? 'station-row-dragover'
+                                        : ''
                                         }`}
                                     draggable
                                     onDragStart={() => handleDragStart(line.id, index)}
@@ -140,34 +95,6 @@ export default function LineManager() {
                                     </button>
                                 </div>
                             ))}
-
-                            {}
-                            {addingToLine === line.id ? (
-                                <div className="add-station-form">
-                                    <input
-                                        className="input-field"
-                                        placeholder="Station name..."
-                                        value={newStationInput}
-                                        onChange={(e) => setNewStationInput(e.target.value)}
-                                        onKeyDown={(e) => e.key === 'Enter' && addStation(line.id)}
-                                        autoFocus
-                                    />
-                                    <button className="btn btn-primary btn-sm" onClick={() => addStation(line.id)}>
-                                        Add
-                                    </button>
-                                    <button className="btn btn-ghost btn-sm" onClick={() => setAddingToLine(null)}>
-                                        Cancel
-                                    </button>
-                                </div>
-                            ) : (
-                                <button
-                                    className="btn btn-ghost btn-sm add-station-btn"
-                                    onClick={() => setAddingToLine(line.id)}
-                                >
-                                    <Plus size={14} />
-                                    Add Station
-                                </button>
-                            )}
                         </div>
                     )}
                 </div>
