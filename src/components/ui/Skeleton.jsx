@@ -1,6 +1,6 @@
 /**
  * Skeleton
- * UI component for the Metro Booking application.
+ * Loading skeleton placeholders.
  */
 import MetroTrainIcon from './MetroTrainIcon';
 import './Skeleton.css';

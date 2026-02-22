@@ -1,6 +1,6 @@
 /**
  * CompatibilityMatrix
- * UI component for the Metro Booking application.
+ * System compatibility matrix view.
  */
 import { useState } from 'react';
 import { VERSION_MATRIX } from '../../data/metroData';

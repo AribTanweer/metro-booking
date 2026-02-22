@@ -1,6 +1,6 @@
 /**
  * BulkImport
- * UI component for the Metro Booking application.
+ * Bulk import tool for metro network data.
  */
 import { useState, useRef } from 'react';
 import { Upload, FileText, Check, AlertTriangle, X, Loader } from 'lucide-react';

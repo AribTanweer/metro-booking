@@ -1,6 +1,6 @@
 /**
  * MapSearch
- * UI component for the Metro Booking application.
+ * Map-based station search overlay.
  */
 import { useState, useRef, useEffect } from 'react';
 import { Search, X, MapPin } from 'lucide-react';

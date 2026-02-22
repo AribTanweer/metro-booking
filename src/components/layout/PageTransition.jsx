@@ -1,6 +1,6 @@
 /**
  * PageTransition
- * UI component for the Metro Booking application.
+ * Animated page transition wrapper.
  */
 import { useRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';

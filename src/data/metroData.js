@@ -1,6 +1,6 @@
 /**
  * metroData
- * Core data and routing logic for the Metro network.
+ * Metro network graph, station data, and Dijkstra routing logic.
  */
 export const METRO_LINES = {
   yellow: {

@@ -1,6 +1,6 @@
 /**
  * LineManager
- * UI component for the Metro Booking application.
+ * Metro line management interface.
  */
 import { useState } from 'react';
 import { ChevronDown, ChevronRight, GripVertical, Plus, X, AlertTriangle } from 'lucide-react';

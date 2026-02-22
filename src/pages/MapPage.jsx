@@ -1,6 +1,6 @@
 /**
  * MapPage
- * UI component for the Metro Booking application.
+ * Interactive map viewer page.
  */
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

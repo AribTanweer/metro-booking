@@ -1,6 +1,6 @@
 /**
  * BookingPage
- * UI component for the Metro Booking application.
+ * Main route search and booking flow.
  */
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

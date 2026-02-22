@@ -1,6 +1,6 @@
 /**
  * RouteResults
- * UI component for the Metro Booking application.
+ * Displays calculated route options and comparisons.
  */
 import { useState } from 'react';
 import { Clock, ArrowRight, Repeat, ChevronDown, ChevronUp, MapPin, AlertCircle, Map, BarChart3, List } from 'lucide-react';

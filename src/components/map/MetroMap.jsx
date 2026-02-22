@@ -1,6 +1,6 @@
 /**
  * MetroMap
- * UI component for the Metro Booking application.
+ * Interactive SVG metro map visualization.
  */
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';

@@ -1,6 +1,6 @@
 /**
  * AdminPage
- * UI component for the Metro Booking application.
+ * Administration dashboard.
  */
 import { useState } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';

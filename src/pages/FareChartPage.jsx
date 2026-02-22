@@ -1,6 +1,6 @@
 /**
  * FareChartPage
- * UI component for the Metro Booking application.
+ * Fare chart and interactive calculator.
  */
 import { useState, useCallback } from 'react';
 import { IndianRupee, Calculator, Clock, CreditCard, Info, Zap } from 'lucide-react';

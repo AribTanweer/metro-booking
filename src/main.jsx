@@ -1,6 +1,6 @@
 /**
  * main
- * UI component for the Metro Booking application.
+ * Application entry point.
  */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

@@ -1,6 +1,6 @@
 /**
  * StationSearch
- * UI component for the Metro Booking application.
+ * Station search and autocomplete input.
  */
 import { useState, useRef, useEffect } from 'react';
 import { ArrowDownUp, Search, Clock, ArrowRight } from 'lucide-react';

@@ -1,6 +1,6 @@
 /**
  * Toast
- * UI component for the Metro Booking application.
+ * Toast notification provider and hook.
  */
 import { createContext, useContext, useState, useCallback, useRef } from 'react';
 import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';

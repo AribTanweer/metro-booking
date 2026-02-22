@@ -1,6 +1,6 @@
 /**
  * BookingConfirmation
- * UI component for the Metro Booking application.
+ * Final booking confirmation step.
  */
 import { useRef, useCallback } from 'react';
 import { QRCodeSVG } from 'qrcode.react';

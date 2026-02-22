@@ -1,6 +1,6 @@
 /**
  * Navbar
- * UI component for the Metro Booking application.
+ * Main application navigation bar.
  */
 import { NavLink, useLocation } from 'react-router-dom';
 import { Map, Settings, Ticket, IndianRupee } from 'lucide-react';
