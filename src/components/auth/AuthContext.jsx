@@ -12,7 +12,7 @@ export const useAuth = () => useContext(AuthContext);
 export function AuthProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const { showToast } = useToast();
+    const toast = useToast();
 
     useEffect(() => {
         // Check session storage on mount
@@ -31,10 +31,10 @@ export function AuthProvider({ children }) {
                 if (password === 'admin123') {
                     setIsAuthenticated(true);
                     sessionStorage.setItem('metro_admin_auth', 'true');
-                    showToast('Successfully logged in as Admin', 'success');
+                    toast.success('Successfully logged in as Admin');
                     resolve(true);
                 } else {
-                    showToast('Invalid password', 'error');
+                    toast.error('Invalid password');
                     resolve(false);
                 }
             }, 800);
@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
     const logout = () => {
         setIsAuthenticated(false);
         sessionStorage.removeItem('metro_admin_auth');
-        showToast('Logged out successfully', 'info');
+        toast.info('Logged out successfully');
     };
 
     return (

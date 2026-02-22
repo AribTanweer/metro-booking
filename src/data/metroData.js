@@ -40,10 +40,11 @@ export const METRO_LINES = {
     stations: ['janakpuri-west', 'dabri-mor', 'dashrathpuri', 'palam', 'sadar-bazar-cantonment', 'terminal-1-igi-airport', 'shankar-vihar', 'vasant-vihar', 'munirka', 'r-k-puram', 'ina-magenta', 'sarojini-nagar', 'ignou', 'arjan-garh', 'ghitorni', 'sultanpur', 'chattarpur', 'qutab-minar', 'saket', 'malviya-nagar', 'hauz-khas', 'panchsheel-park', 'chirag-delhi', 'greater-kailash', 'nehru-enclave', 'kalkaji-mandir', 'okhla-nsic', 'sukhdev-vihar', 'jamia-millia-islamia', 'okhla-vihar', 'jasola-vihar-shaheen-bagh', 'kalindi-kunj', 'botanical-garden'],
   },
 };
-function buildStationData() {
+export function buildStationData(metroLines) {
   const stations = {};
 
-  Object.entries(METRO_LINES).forEach(([lineId, line]) => {
+  const linesToUse = metroLines || METRO_LINES;
+  Object.entries(linesToUse).forEach(([lineId, line]) => {
     line.stations.forEach((stationId, index) => {
       const name = stationId
         .split('-')
@@ -77,7 +78,7 @@ function buildStationData() {
   return stations;
 }
 
-function generateFacilities(stationId) {
+export function generateFacilities(stationId) {
   const facilities = ['accessibility'];
   const hash = stationId.length + stationId.charCodeAt(0);
   if (hash % 3 === 0) facilities.push('parking');
@@ -85,7 +86,7 @@ function generateFacilities(stationId) {
   facilities.push('exits');
   return facilities;
 }
-const STATION_POSITIONS = {
+export const STATION_POSITIONS = {
   'samaypur-badli': { x: 550, y: 40 },
   'rohini-sector-18': { x: 550, y: 90 },
   'haiderpur-badli-mor': { x: 550, y: 140 },
@@ -255,7 +256,7 @@ const STATION_POSITIONS = {
   'botanical-garden': { x: 1230, y: 1050 },
 };
 
-function getStationPosition(stationId) {
+export function getStationPosition(stationId) {
   return STATION_POSITIONS[stationId] || { x: 700, y: 550 };
 }
 
@@ -269,7 +270,7 @@ const TRANSFER_PENALTY = 5;
  * Deterministic inter-station travel time based on station IDs.
  * Produces consistent 2–4 minute values (unlike the old Math.random approach).
  */
-function stationPairDuration(a, b) {
+export function stationPairDuration(a, b) {
   let hash = 0;
   const key = a < b ? `${a}|${b}` : `${b}|${a}`;
   for (let i = 0; i < key.length; i++) {
@@ -278,10 +279,11 @@ function stationPairDuration(a, b) {
   return 2 + (Math.abs(hash) % 3);
 }
 
-function buildGraph() {
+export function buildGraph(metroLines) {
   const graph = {};
+  const linesToUse = metroLines || METRO_LINES;
 
-  Object.entries(METRO_LINES).forEach(([lineId, line]) => {
+  Object.entries(linesToUse).forEach(([lineId, line]) => {
     line.stations.forEach((stationId, index) => {
       if (!graph[stationId]) graph[stationId] = [];
       if (index > 0) {

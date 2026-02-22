@@ -10,7 +10,7 @@ import './AddStationTab.css';
 
 export default function AddStationTab() {
     const { lines, setLines } = useAdminData();
-    const { showToast } = useToast();
+    const toast = useToast();
 
     const [stationName, setStationName] = useState('');
     const [stationId, setStationId] = useState('');
@@ -49,13 +49,13 @@ export default function AddStationTab() {
         e.preventDefault();
 
         if (!stationName.trim() || !stationId.trim()) {
-            showToast('Station name and ID are required.', 'error');
+            toast.error('Station name and ID are required.');
             return;
         }
 
         const selectedLineIds = Object.keys(selectedLines).filter(id => selectedLines[id]);
         if (selectedLineIds.length === 0) {
-            showToast('Please select at least one line.', 'error');
+            toast.error('Please select at least one line.');
             return;
         }
 
@@ -65,7 +65,7 @@ export default function AddStationTab() {
         );
 
         if (existsOnSelected) {
-            showToast('Station already exists on one of the selected lines.', 'error');
+            toast.error('Station already exists on one of the selected lines.');
             return;
         }
 
@@ -113,7 +113,7 @@ export default function AddStationTab() {
         });
 
         setLines(newLines);
-        showToast(`Successfully added ${stationName.trim()} to network!`, 'success');
+        toast.success(`Successfully added ${stationName.trim()} to network!`);
 
         // Reset form
         setStationName('');

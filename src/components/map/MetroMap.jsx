@@ -4,7 +4,7 @@
  */
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
-import { METRO_LINES, STATIONS } from '../../data/metroData';
+import { useMetroData } from '../../data/MetroDataContext';
 import './MetroMap.css';
 const LABEL_STATIONS = new Set([
     'kashmere-gate', 'rajiv-chowk', 'central-secretariat', 'hauz-khas',
@@ -205,6 +205,7 @@ function getLabelOffset(anchor, isInterchange) {
 }
 
 export default function MetroMap({ onStationClick, highlightedRoute, focusedStation }) {
+    const { metroLines: METRO_LINES, stations: STATIONS } = useMetroData();
     const svgRef = useRef(null);
     const wrapperRef = useRef(null);
     const [zoom, setZoom] = useState(1);

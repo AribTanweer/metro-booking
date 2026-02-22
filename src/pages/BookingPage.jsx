@@ -9,13 +9,15 @@ import RouteResults from '../components/booking/RouteResults';
 import BookingConfirmation from '../components/booking/BookingConfirmation';
 import { RouteResultsSkeleton } from '../components/ui/Skeleton';
 import { useToast } from '../components/ui/Toast';
-import { findRoutes, saveRecentSearch, getStationById, generateBookingRef } from '../data/metroData';
+import { saveRecentSearch, generateBookingRef } from '../data/metroData';
+import { useMetroData } from '../data/MetroDataContext';
 import './BookingPage.css';
 
 export default function BookingPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const toast = useToast();
+    const { findRoutes, getStationById } = useMetroData();
     const [source, setSource] = useState(null);
     const [destination, setDestination] = useState(null);
     const [routes, setRoutes] = useState(null);
@@ -40,7 +42,7 @@ export default function BookingPage() {
                 setRoutes(parsed.routes);
                 setSelectedRoute(parsed.selectedRoute);
                 setStep(parsed.step || 'results');
-            } catch (e) {  }
+            } catch (e) { }
             sessionStorage.removeItem('bookingState');
         }
         if (navState?.source || navState?.destination) {

@@ -4,10 +4,12 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import { ArrowDownUp, Search, Clock, ArrowRight } from 'lucide-react';
-import { searchStations, getRecentSearches, getStationById } from '../../data/metroData';
+import { getRecentSearches } from '../../data/metroData';
+import { useMetroData } from '../../data/MetroDataContext';
 import './StationSearch.css';
 
 export default function StationSearch({ source, destination, onSourceChange, onDestinationChange, onSwap, onSearch }) {
+    const { searchStations, getStationById } = useMetroData();
     const [sourceQuery, setSourceQuery] = useState(source?.name || '');
     const [destQuery, setDestQuery] = useState(destination?.name || '');
     const [sourceResults, setSourceResults] = useState([]);

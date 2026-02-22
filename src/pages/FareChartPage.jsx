@@ -4,7 +4,7 @@
  */
 import { useState, useCallback } from 'react';
 import { IndianRupee, Calculator, Clock, CreditCard, Info, Zap } from 'lucide-react';
-import { searchStations, findRoutes, getStationById } from '../data/metroData';
+import { useMetroData } from '../data/MetroDataContext';
 import './FareChartPage.css';
 
 const FARE_TIERS = [
@@ -16,6 +16,7 @@ const FARE_TIERS = [
 ];
 
 export default function FareChartPage() {
+    const { searchStations, findRoutes } = useMetroData();
     const [fromQuery, setFromQuery] = useState('');
     const [toQuery, setToQuery] = useState('');
     const [fromStation, setFromStation] = useState(null);
@@ -30,7 +31,7 @@ export default function FareChartPage() {
         setFromStation(null);
         setCalcResult(null);
         setFromResults(q.length >= 2 ? searchStations(q).slice(0, 5) : []);
-    }, []);
+    }, [searchStations]);
 
     const handleToChange = useCallback((e) => {
         const q = e.target.value;
@@ -38,7 +39,7 @@ export default function FareChartPage() {
         setToStation(null);
         setCalcResult(null);
         setToResults(q.length >= 2 ? searchStations(q).slice(0, 5) : []);
-    }, []);
+    }, [searchStations]);
 
     const selectFrom = (station) => {
         setFromStation(station);
@@ -66,7 +67,7 @@ export default function FareChartPage() {
         } else {
             setCalcResult({ error: true });
         }
-    }, [fromStation, toStation]);
+    }, [fromStation, toStation, findRoutes]);
 
     return (
         <div className="fare-chart-page">
@@ -75,7 +76,7 @@ export default function FareChartPage() {
                 <p>Metro fares are distance-based, calculated by the number of stations traveled</p>
             </div>
 
-            {}
+            { }
             <div className="card fare-table-card animate-fade-in">
                 <table className="fare-table" role="table" aria-label="Fare tiers by number of stops">
                     <thead>
@@ -117,7 +118,7 @@ export default function FareChartPage() {
                 </table>
             </div>
 
-            {}
+            { }
             <div className="card fare-calculator-card animate-fade-in" style={{ animationDelay: '100ms' }}>
                 <h3>
                     <Calculator size={18} />
@@ -224,7 +225,7 @@ export default function FareChartPage() {
                 )}
             </div>
 
-            {}
+            { }
             <div className="fare-info-grid animate-fade-in" style={{ animationDelay: '200ms' }}>
                 <div className="card fare-info-card">
                     <div className="fare-info-icon" style={{ background: '#4CAF50' }}>

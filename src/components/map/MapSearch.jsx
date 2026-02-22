@@ -4,10 +4,11 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import { Search, X, MapPin } from 'lucide-react';
-import { searchStations } from '../../data/metroData';
+import { useMetroData } from '../../data/MetroDataContext';
 import './MapSearch.css';
 
 export default function MapSearch({ onStationSelect }) {
+    const { searchStations } = useMetroData();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [isOpen, setIsOpen] = useState(false);

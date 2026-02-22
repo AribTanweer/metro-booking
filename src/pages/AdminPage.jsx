@@ -4,11 +4,12 @@
  */
 import { useState } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
-import { List, Upload, Grid3X3, LogOut, PlusCircle } from 'lucide-react';
+import { List, Upload, Grid3X3, LogOut, PlusCircle, MinusCircle } from 'lucide-react';
 import LineManager from '../components/admin/LineManager';
 import BulkImport from '../components/admin/BulkImport';
 import CompatibilityMatrix from '../components/admin/CompatibilityMatrix';
 import AddStationTab from '../components/admin/AddStationTab';
+import RemoveStationTab from '../components/admin/RemoveStationTab';
 import { useAuth } from '../components/auth/AuthContext';
 import { AdminProvider } from '../components/admin/AdminContext';
 import './AdminPage.css';
@@ -17,6 +18,7 @@ export default function AdminPage() {
     const tabs = [
         { to: '/admin', label: 'Lines & Stations', icon: List, end: true },
         { to: '/admin/add-station', label: 'Add Station', icon: PlusCircle },
+        { to: '/admin/remove-station', label: 'Remove Station', icon: MinusCircle },
         { to: '/admin/import', label: 'Bulk Import', icon: Upload },
         { to: '/admin/compatibility', label: 'Compatibility', icon: Grid3X3 },
     ];
@@ -55,6 +57,7 @@ export default function AdminPage() {
                     <Routes>
                         <Route index element={<LineManager />} />
                         <Route path="add-station" element={<AddStationTab />} />
+                        <Route path="remove-station" element={<RemoveStationTab />} />
                         <Route path="import" element={<BulkImport />} />
                         <Route path="compatibility" element={<CompatibilityMatrix />} />
                     </Routes>

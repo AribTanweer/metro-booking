@@ -5,6 +5,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastProvider } from './components/ui/Toast';
 import { AuthProvider, useAuth } from './components/auth/AuthContext';
+import { MetroDataProvider } from './data/MetroDataContext';
 import Navbar from './components/layout/Navbar';
 import PageTransition from './components/layout/PageTransition';
 import BookingPage from './pages/BookingPage';
@@ -33,26 +34,28 @@ function App() {
   return (
     <BrowserRouter>
       <ToastProvider>
-        <AuthProvider>
-          <div className="app-layout">
-            <Navbar />
-            <main className="app-main" id="main-content">
-              <PageTransition>
-                <Routes>
-                  <Route path="/" element={<BookingPage />} />
-                  <Route path="/map" element={<MapPage />} />
-                  <Route path="/fares" element={<FareChartPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/admin/*" element={
-                    <ProtectedRoute>
-                      <AdminPage />
-                    </ProtectedRoute>
-                  } />
-                </Routes>
-              </PageTransition>
-            </main>
-          </div>
-        </AuthProvider>
+        <MetroDataProvider>
+          <AuthProvider>
+            <div className="app-layout">
+              <Navbar />
+              <main className="app-main" id="main-content">
+                <PageTransition>
+                  <Routes>
+                    <Route path="/" element={<BookingPage />} />
+                    <Route path="/map" element={<MapPage />} />
+                    <Route path="/fares" element={<FareChartPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/admin/*" element={
+                      <ProtectedRoute>
+                        <AdminPage />
+                      </ProtectedRoute>
+                    } />
+                  </Routes>
+                </PageTransition>
+              </main>
+            </div>
+          </AuthProvider>
+        </MetroDataProvider>
       </ToastProvider>
     </BrowserRouter>
   );
