@@ -1,0 +1,61 @@
+.metro-train-icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* ---- Animated state ---- */
+.metro-train-animate .train-body {
+    animation: trainSway 1.2s ease-in-out infinite;
+    transform-origin: 64px 100px;
+}
+
+.metro-train-animate .train-wheel {
+    animation: wheelSpin 0.6s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+@keyframes trainSway {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+}
+
+@keyframes wheelSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pulsing glow behind train when animating */
+.metro-train-animate {
+    filter: drop-shadow(0 0 6px rgba(126, 200, 227, 0.4));
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .metro-train-animate .train-body,
+    .metro-train-animate .train-wheel {
+        animation: none;
+    }
+
+    .metro-train-animate {
+        filter: none;
+    }
+}

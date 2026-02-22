@@ -1,0 +1,51 @@
+.page-transition {
+    width: 100%;
+    min-height: 100%;
+}
+
+.page-transition-entered {
+    opacity: 1;
+}
+
+.page-transition-exiting {
+    animation: pageExit 180ms ease-in forwards;
+}
+
+.page-transition-entering {
+    animation: pageEnter 280ms ease-out forwards;
+}
+
+@keyframes pageExit {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.995);
+    }
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.995);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .page-transition-exiting,
+    .page-transition-entering {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}

@@ -1,0 +1,163 @@
+.booking-confirmation {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    margin-bottom: var(--space-4);
+}
+
+.confirmation-card {
+    text-align: center;
+}
+
+.confirmation-success {
+    margin-bottom: var(--space-6);
+}
+
+.success-icon {
+    color: var(--success);
+    margin-bottom: var(--space-3);
+}
+
+.confirmation-ref {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    margin-bottom: var(--space-5);
+}
+
+.ref-label {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+.ref-number {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+}
+
+/* Details */
+.confirmation-details {
+    padding: var(--space-5) 0;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    text-align: left;
+}
+
+.detail-icon {
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+}
+
+.detail-value {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.fare-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+/* QR Section */
+.qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-6) 0 var(--space-2);
+}
+
+.qr-wrapper {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: inline-block;
+}
+
+.qr-hint {
+    margin-top: var(--space-3);
+    font-size: 0.75rem;
+}
+
+/* Actions */
+.confirmation-actions {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    justify-content: center;
+}
+
+/* ---- Responsive ---- */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .booking-confirmation {
+        max-width: 100%;
+    }
+
+    .qr-wrapper svg {
+        width: 150px !important;
+        height: 150px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .ref-number {
+        font-size: 1.25rem;
+    }
+
+    .qr-wrapper {
+        padding: var(--space-3);
+    }
+
+    .qr-wrapper svg {
+        width: 140px !important;
+        height: 140px !important;
+    }
+
+    .confirmation-actions {
+        flex-direction: column;
+        margin-top: var(--space-4);
+    }
+
+    .confirmation-actions .btn {
+        width: 100%;
+    }
+
+    .confirmation-success h2 {
+        font-size: 1.125rem;
+    }
+
+    .detail-value {
+        font-size: 0.875rem;
+    }
+
+    .fare-value {
+        font-size: 1rem;
+    }
+}

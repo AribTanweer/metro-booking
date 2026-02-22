@@ -1,0 +1,285 @@
+.metro-map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-primary);
+    user-select: none;
+}
+
+.metro-map-svg {
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    transition: none;
+}
+
+/* Station hover */
+.map-station circle {
+    transition: r 0.15s ease, opacity 0.15s ease;
+}
+
+.map-station:hover circle {
+    filter: brightness(1.1);
+}
+
+/* Station labels */
+.station-label {
+    font-family: var(--font-sans);
+    pointer-events: none;
+    letter-spacing: 0.01em;
+}
+
+.station-label-major {
+    fill: var(--text-primary);
+}
+
+.station-label-minor {
+    fill: var(--text-tertiary);
+}
+
+/* Map Controls */
+.map-controls {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    z-index: 10;
+}
+
+.map-control-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.map-control-btn:hover {
+    background: var(--bg-surface-variant);
+    color: var(--text-primary);
+}
+
+/* Legend */
+.map-legend {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.legend-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.legend-swatch {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.legend-name {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* Tooltip */
+.map-tooltip {
+    position: absolute;
+    pointer-events: none;
+    z-index: 20;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-2) var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.map-tooltip-name {
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.map-tooltip-lines {
+    display: flex;
+    gap: 3px;
+}
+
+.map-tooltip-badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+}
+
+/* ============================
+   Animated Route Overlay
+   ============================ */
+
+/* Glow behind route */
+.route-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+}
+
+/* Route path draw animation */
+.route-draw {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: drawRoute 1.5s ease forwards;
+}
+
+@keyframes drawRoute {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Dashed flow line — marching ants */
+.route-dash-flow {
+    animation: marchDash 1.2s linear infinite;
+}
+
+@keyframes marchDash {
+    to {
+        stroke-dashoffset: -28;
+    }
+}
+
+/* Pulsing route stops */
+.route-stop-pulse {
+    animation: stopPulse 2s ease-in-out infinite;
+}
+
+@keyframes stopPulse {
+
+    0%,
+    100% {
+        r: 6;
+        opacity: 0.12;
+    }
+
+    50% {
+        r: 12;
+        opacity: 0.25;
+    }
+}
+
+/* Moving train dot */
+.train-dot {
+    filter: drop-shadow(0 0 3px rgba(26, 26, 46, 0.4));
+}
+
+.train-dot-glow {
+    animation: trainGlow 1s ease-in-out infinite;
+}
+
+@keyframes trainGlow {
+
+    0%,
+    100% {
+        r: 8;
+        opacity: 0.1;
+    }
+
+    50% {
+        r: 14;
+        opacity: 0.2;
+    }
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 768px) {
+    .map-controls {
+        top: var(--space-3);
+        right: var(--space-3);
+    }
+
+    .map-control-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .map-legend {
+        bottom: var(--space-3);
+        left: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+    }
+
+    .legend-name {
+        font-size: 0.625rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-controls {
+        top: var(--space-2);
+        right: var(--space-2);
+        gap: var(--space-1);
+    }
+
+    .map-control-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .map-legend {
+        bottom: var(--space-2);
+        left: var(--space-2);
+        padding: var(--space-2);
+        gap: var(--space-1);
+    }
+
+    .legend-swatch {
+        width: 14px;
+    }
+
+    .legend-name {
+        font-size: 0.5625rem;
+    }
+
+    .map-tooltip {
+        font-size: 0.75rem;
+        padding: var(--space-1) var(--space-2);
+    }
+}

@@ -1,0 +1,34 @@
+.booking-page {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.booking-page-header {
+    margin-bottom: var(--space-6);
+}
+
+.booking-page-header h1 {
+    margin-bottom: var(--space-1);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .booking-page {
+        max-width: 100%;
+    }
+
+    .booking-page-header {
+        margin-bottom: var(--space-4);
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .booking-page-header {
+        margin-bottom: var(--space-3);
+    }
+
+    .booking-page-header p {
+        font-size: 0.8125rem;
+    }
+}

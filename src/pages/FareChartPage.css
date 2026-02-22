@@ -1,0 +1,218 @@
+.fare-chart-page {
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.fare-chart-header {
+    margin-bottom: var(--space-8);
+}
+
+.fare-chart-header h1 {
+    margin-bottom: var(--space-2);
+}
+
+.fare-chart-header p {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+}
+
+/* ---- Fare Table ---- */
+.fare-table-card {
+    margin-bottom: var(--space-6);
+}
+
+.fare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9375rem;
+}
+
+.fare-table thead th {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    border-bottom: 2px solid var(--border);
+}
+
+.fare-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.fare-table tbody tr:hover {
+    background: var(--bg-surface-variant);
+}
+
+.fare-table tbody td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--divider);
+    vertical-align: middle;
+}
+
+.fare-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.fare-tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.fare-tier-badge .tier-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.fare-amount {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.fare-amount .currency {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-right: 2px;
+}
+
+.fare-stops {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* ---- Fare Calculator ---- */
+.fare-calculator-card {
+    margin-bottom: var(--space-6);
+}
+
+.fare-calculator-card h3 {
+    margin-bottom: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.fare-calc-form {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.fare-calc-form .input-group {
+    flex: 1;
+    min-width: 140px;
+}
+
+.fare-calc-result {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    background: var(--bg-surface-variant);
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-4);
+    animation: fadeIn 0.3s ease both;
+}
+
+.fare-calc-result-amount {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.fare-calc-result-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fare-calc-result-details span {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.fare-calc-result-details strong {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+}
+
+/* ---- Info Cards ---- */
+.fare-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-4);
+}
+
+.fare-info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+}
+
+.fare-info-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.fare-info-card h4 {
+    font-size: 0.875rem;
+    margin-bottom: 2px;
+}
+
+.fare-info-card p {
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .fare-calc-form {
+        flex-direction: column;
+    }
+
+    .fare-calc-form .input-group {
+        width: 100%;
+    }
+
+    .fare-calc-result {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .fare-table thead th,
+    .fare-table tbody td {
+        padding: var(--space-2) var(--space-3);
+        font-size: 0.8125rem;
+    }
+
+    .fare-amount {
+        font-size: 1rem;
+    }
+
+    .fare-info-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,105 @@
+.map-page {
+    position: relative;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    margin: calc(-1 * var(--space-6));
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+}
+
+/* Route info banner */
+.map-route-banner {
+    position: absolute;
+    top: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-3) var(--space-5);
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    max-width: 90%;
+}
+
+.banner-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.banner-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+.banner-route {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.banner-meta {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.banner-actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-shrink: 0;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .map-page {
+        height: calc(100vh - 54px);
+        margin: calc(-1 * var(--space-4));
+    }
+
+    .map-route-banner {
+        flex-direction: column;
+        gap: var(--space-3);
+        text-align: center;
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .banner-actions {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .map-page {
+        height: calc(100vh - 50px);
+        margin: calc(-1 * var(--space-3));
+    }
+
+    .map-route-banner {
+        top: var(--space-2);
+        max-width: 95%;
+        padding: var(--space-2) var(--space-3);
+    }
+
+    .banner-route {
+        font-size: 0.8125rem;
+    }
+
+    .banner-meta {
+        font-size: 0.6875rem;
+    }
+}
