@@ -1,3 +1,7 @@
+/**
+ * MapPage
+ * UI component for the Metro Booking application.
+ */
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -15,8 +19,6 @@ export default function MapPage() {
     const [highlightRoute, setHighlightRoute] = useState(null);
     const [routeInfo, setRouteInfo] = useState(null);
     const [focusedStation, setFocusedStation] = useState(null);
-
-    // Receive highlighted route from booking page
     useEffect(() => {
         if (location.state?.highlightedRoute) {
             setHighlightRoute(location.state.highlightedRoute);
@@ -54,10 +56,10 @@ export default function MapPage() {
                 />
             </div>
 
-            {/* Station search overlay */}
+            {}
             <MapSearch onStationSelect={handleSearchSelect} />
 
-            {/* Route info banner when showing a highlighted route from booking */}
+            {}
             {routeInfo && (
                 <div className="map-route-banner animate-fade-in">
                     <div className="banner-info">

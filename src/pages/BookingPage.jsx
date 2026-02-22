@@ -1,3 +1,7 @@
+/**
+ * BookingPage
+ * UI component for the Metro Booking application.
+ */
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import StationSearch from '../components/booking/StationSearch';
@@ -17,10 +21,8 @@ export default function BookingPage() {
     const [routes, setRoutes] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [booking, setBooking] = useState(null);
-    const [step, setStep] = useState('search'); // search | loading | results | confirmation
+    const [step, setStep] = useState('search');
     const [isSearching, setIsSearching] = useState(false);
-
-    // Restore state: from nav state (back from map) OR from sessionStorage (preserved booking)
     useEffect(() => {
         const navState = location.state;
         if (navState?.source) {
@@ -29,8 +31,6 @@ export default function BookingPage() {
         if (navState?.destination) {
             setDestination(navState.destination);
         }
-
-        // Restore full booking context from sessionStorage (saved before View on Map)
         const saved = sessionStorage.getItem('bookingState');
         if (saved) {
             try {
@@ -40,24 +40,18 @@ export default function BookingPage() {
                 setRoutes(parsed.routes);
                 setSelectedRoute(parsed.selectedRoute);
                 setStep(parsed.step || 'results');
-            } catch (e) { /* ignore parse errors */ }
+            } catch (e) {  }
             sessionStorage.removeItem('bookingState');
         }
-
-        // Clean up nav state so refreshing doesn't re-trigger
         if (navState?.source || navState?.destination) {
             window.history.replaceState({}, '');
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleSearch = () => {
         if (!source || !destination) return;
-
-        // Show skeleton loading state
         setIsSearching(true);
         setStep('loading');
-
-        // Simulate network delay to show skeleton
         setTimeout(() => {
             const results = findRoutes(source.id, destination.id);
             setRoutes(results);
@@ -112,7 +106,6 @@ export default function BookingPage() {
     };
 
     const handleViewOnMap = (route) => {
-        // Persist full booking state so we can restore when coming back
         sessionStorage.setItem('bookingState', JSON.stringify({
             source, destination, routes, selectedRoute: route, step: 'results',
         }));

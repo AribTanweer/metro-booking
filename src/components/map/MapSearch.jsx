@@ -1,3 +1,7 @@
+/**
+ * MapSearch
+ * UI component for the Metro Booking application.
+ */
 import { useState, useRef, useEffect } from 'react';
 import { Search, X, MapPin } from 'lucide-react';
 import { searchStations } from '../../data/metroData';
@@ -18,8 +22,6 @@ export default function MapSearch({ onStationSelect }) {
             setResults([]);
         }
     }, [query]);
-
-    // Close on outside click
     useEffect(() => {
         const handler = (e) => {
             if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {

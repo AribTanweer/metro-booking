@@ -1,3 +1,7 @@
+/**
+ * StationSearch
+ * UI component for the Metro Booking application.
+ */
 import { useState, useRef, useEffect } from 'react';
 import { ArrowDownUp, Search, Clock, ArrowRight } from 'lucide-react';
 import { searchStations, getRecentSearches, getStationById } from '../../data/metroData';
@@ -73,8 +77,6 @@ export default function StationSearch({ source, destination, onSourceChange, onD
         }
         setShowRecent(false);
     };
-
-    // Close dropdowns on outside click
     useEffect(() => {
         const handleClick = (e) => {
             if (sourceRef.current && !sourceRef.current.contains(e.target)) {

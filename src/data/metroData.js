@@ -1,7 +1,7 @@
-// ============================================
-// Metro Network Mock Data — Delhi Metro Inspired
-// ============================================
-
+/**
+ * metroData
+ * Core data and routing logic for the Metro network.
+ */
 export const METRO_LINES = {
   yellow: {
     id: 'yellow',
@@ -40,8 +40,6 @@ export const METRO_LINES = {
     stations: ['janakpuri-west', 'dabri-mor', 'dashrathpuri', 'palam', 'sadar-bazar-cantonment', 'terminal-1-igi-airport', 'shankar-vihar', 'vasant-vihar', 'munirka', 'r-k-puram', 'ina-magenta', 'sarojini-nagar', 'ignou', 'arjan-garh', 'ghitorni', 'sultanpur', 'chattarpur', 'qutab-minar', 'saket', 'malviya-nagar', 'hauz-khas', 'panchsheel-park', 'chirag-delhi', 'greater-kailash', 'nehru-enclave', 'kalkaji-mandir', 'okhla-nsic', 'sukhdev-vihar', 'jamia-millia-islamia', 'okhla-vihar', 'jasola-vihar-shaheen-bagh', 'kalindi-kunj', 'botanical-garden'],
   },
 };
-
-// Generate station details from lines
 function buildStationData() {
   const stations = {};
 
@@ -87,12 +85,7 @@ function generateFacilities(stationId) {
   facilities.push('exits');
   return facilities;
 }
-
-// Hand-crafted schematic positions on a clean grid
-// Uses horizontal/vertical/45° diagonal lines, uniform spacing
-// Grid unit = 50px, viewBox 1500×1300 — wide spacing for readable labels
 const STATION_POSITIONS = {
-  // ===== YELLOW LINE (vertical, center) =====
   'samaypur-badli': { x: 550, y: 40 },
   'rohini-sector-18': { x: 550, y: 90 },
   'haiderpur-badli-mor': { x: 550, y: 140 },
@@ -108,11 +101,11 @@ const STATION_POSITIONS = {
   'vishwavidyalaya': { x: 620, y: 190 },
   'vidhan-sabha': { x: 620, y: 240 },
   'civil-lines': { x: 620, y: 290 },
-  'kashmere-gate': { x: 660, y: 340 },     // MAJOR interchange
+  'kashmere-gate': { x: 660, y: 340 },
   'chandni-chowk': { x: 660, y: 390 },
   'chawri-bazar': { x: 660, y: 440 },
   'new-delhi': { x: 660, y: 490 },
-  'rajiv-chowk': { x: 660, y: 540 },       // MAJOR interchange
+  'rajiv-chowk': { x: 660, y: 540 },
   'patel-chowk': { x: 660, y: 590 },
   'central-secretariat': { x: 660, y: 640 },// interchange with violet
   'udyog-bhawan': { x: 660, y: 700 },
@@ -121,12 +114,10 @@ const STATION_POSITIONS = {
   'ina': { x: 660, y: 850 },
   'aiims': { x: 660, y: 900 },
   'green-park': { x: 660, y: 950 },
-  'hauz-khas': { x: 660, y: 1000 },        // interchange with magenta
+  'hauz-khas': { x: 660, y: 1000 },
   'malviya-nagar': { x: 660, y: 1050 },
   'saket': { x: 660, y: 1100 },
   'qutab-minar': { x: 660, y: 1150 },
-
-  // ===== BLUE LINE (horizontal, center) =====
   'noida-electronic-city': { x: 1350, y: 540 },
   'noida-sector-62': { x: 1300, y: 540 },
   'noida-sector-59': { x: 1250, y: 540 },
@@ -140,8 +131,7 @@ const STATION_POSITIONS = {
   'yamuna-bank': { x: 850, y: 540 },
   'indraprastha': { x: 800, y: 540 },
   'pragati-maidan': { x: 750, y: 540 },
-  'mandi-house': { x: 710, y: 540 },       // interchange with violet
-  // rajiv-chowk at 660,540
+  'mandi-house': { x: 710, y: 540 },
   'barakhamba-road': { x: 610, y: 540 },
   'ramakrishna-ashram': { x: 560, y: 540 },
   'jhandewalan': { x: 510, y: 540 },
@@ -157,10 +147,8 @@ const STATION_POSITIONS = {
   'subhash-nagar': { x: 60, y: 590 },
   'tilak-nagar': { x: 60, y: 640 },
   'janakpuri-east': { x: 60, y: 690 },
-  'janakpuri-west': { x: 60, y: 740 },     // interchange with magenta
+  'janakpuri-west': { x: 60, y: 740 },
   'dwarka': { x: 60, y: 790 },
-
-  // ===== RED LINE (horizontal, top) =====
   'shaheed-sthal': { x: 1350, y: 340 },
   'hindon-river': { x: 1300, y: 340 },
   'arthala': { x: 1250, y: 340 },
@@ -176,7 +164,6 @@ const STATION_POSITIONS = {
   'welcome': { x: 750, y: 340 },
   'seelampur': { x: 720, y: 340 },
   'shastri-park': { x: 690, y: 340 },
-  // kashmere-gate at 660,340
   'tis-hazari': { x: 610, y: 340 },
   'pul-bangash': { x: 560, y: 340 },
   'pratap-nagar': { x: 510, y: 340 },
@@ -190,8 +177,6 @@ const STATION_POSITIONS = {
   'rohini-east': { x: 110, y: 340 },
   'rohini-west': { x: 60, y: 340 },
   'rithala': { x: 20, y: 340 },
-
-  // ===== GREEN LINE (branches SW from Inderlok area) =====
   'inderlok-green': { x: 410, y: 390 },
   'ashok-park-main': { x: 370, y: 410 },
   'punjabi-bagh': { x: 330, y: 430 },
@@ -213,16 +198,12 @@ const STATION_POSITIONS = {
   'pandit-shree-ram-sharma': { x: 40, y: 950 },
   'bahadurgarh-city': { x: 40, y: 1000 },
   'brigadier-hoshiar-singh': { x: 40, y: 1050 },
-
-  // ===== VIOLET LINE (north-south, right of yellow) =====
   'kashmere-gate-violet': { x: 700, y: 340 },
   'lal-quila': { x: 740, y: 390 },
   'jama-masjid': { x: 740, y: 440 },
   'delhi-gate': { x: 740, y: 490 },
   'ito': { x: 720, y: 520 },
-  // mandi-house at 710,540
   'janpath': { x: 690, y: 590 },
-  // central-secretariat at 660,640
   'khan-market': { x: 700, y: 700 },
   'jawaharlal-nehru-stadium': { x: 740, y: 750 },
   'jangpura': { x: 780, y: 800 },
@@ -230,7 +211,7 @@ const STATION_POSITIONS = {
   'moolchand': { x: 820, y: 900 },
   'kailash-colony': { x: 820, y: 950 },
   'nehru-place': { x: 820, y: 1000 },
-  'greater-kailash': { x: 820, y: 1050 },  // interchange with magenta
+  'greater-kailash': { x: 820, y: 1050 },
   'govindpuri': { x: 820, y: 1100 },
   'harkesh-nagar-okhla': { x: 860, y: 1150 },
   'jasola-apollo': { x: 910, y: 1150 },
@@ -247,9 +228,6 @@ const STATION_POSITIONS = {
   'neelam-chowk-ajronda': { x: 1310, y: 1300 },
   'escorts-mujesar': { x: 1360, y: 1300 },
   'raja-nahar-singh': { x: 1420, y: 1300 },
-
-  // ===== MAGENTA LINE (diagonal NW to SE) =====
-  // janakpuri-west at 60,740
   'dabri-mor': { x: 110, y: 770 },
   'dashrathpuri': { x: 160, y: 800 },
   'palam': { x: 210, y: 830 },
@@ -262,17 +240,10 @@ const STATION_POSITIONS = {
   'ina-magenta': { x: 600, y: 850 },
   'sarojini-nagar': { x: 550, y: 830 },
   'ignou': { x: 560, y: 880 },
-  // arjan-garh at 550,340 – shared
-  // ghitorni at 550,290 – shared
   'sultanpur': { x: 600, y: 1100 },
   'chattarpur': { x: 620, y: 1130 },
-  // qutab-minar at 660,1150
-  // saket at 660,1100
-  // malviya-nagar at 660,1050
-  // hauz-khas at 660,1000
   'panchsheel-park': { x: 710, y: 1000 },
   'chirag-delhi': { x: 760, y: 1000 },
-  // greater-kailash at 820,1050
   'nehru-enclave': { x: 770, y: 1050 },
   'kalkaji-mandir': { x: 870, y: 1050 },
   'okhla-nsic': { x: 920, y: 1050 },
@@ -292,11 +263,7 @@ export const STATIONS = buildStationData();
 
 export const INTERCHANGE_STATIONS = Object.values(STATIONS).filter(s => s.isInterchange);
 
-// ==========================
-// Route Finding (Dijkstra)
-// ==========================
-
-const TRANSFER_PENALTY = 5; // minutes to change lines
+const TRANSFER_PENALTY = 5;
 
 /**
  * Deterministic inter-station travel time based on station IDs.
@@ -308,7 +275,7 @@ function stationPairDuration(a, b) {
   for (let i = 0; i < key.length; i++) {
     hash = ((hash << 5) - hash + key.charCodeAt(i)) | 0;
   }
-  return 2 + (Math.abs(hash) % 3); // 2, 3, or 4 minutes
+  return 2 + (Math.abs(hash) % 3);
 }
 
 function buildGraph() {
@@ -317,8 +284,6 @@ function buildGraph() {
   Object.entries(METRO_LINES).forEach(([lineId, line]) => {
     line.stations.forEach((stationId, index) => {
       if (!graph[stationId]) graph[stationId] = [];
-
-      // Add edges to adjacent stations on this line
       if (index > 0) {
         const prev = line.stations[index - 1];
         graph[stationId].push({
@@ -353,10 +318,8 @@ const GRAPH = buildGraph();
  * @returns {Array|null}
  */
 function dijkstra(sourceId, destId, excludeEdges = new Set()) {
-  // dist[stationId:lineId] = best cumulative time arriving at station via lineId
   const dist = {};
   const prev = {};
-  // Priority queue as a simple sorted array (sufficient for metro-scale graphs)
   const pq = [];
 
   const startKey = `${sourceId}:_start`;
@@ -364,14 +327,12 @@ function dijkstra(sourceId, destId, excludeEdges = new Set()) {
   pq.push({ key: startKey, stationId: sourceId, line: '_start', time: 0 });
 
   while (pq.length > 0) {
-    // Extract minimum
     pq.sort((a, b) => a.time - b.time);
     const current = pq.shift();
 
     if (current.time > (dist[current.key] ?? Infinity)) continue;
 
     if (current.stationId === destId) {
-      // Reconstruct path
       const path = [];
       let k = current.key;
       while (k) {
@@ -379,7 +340,6 @@ function dijkstra(sourceId, destId, excludeEdges = new Set()) {
         path.unshift({ stationId: sid, line: line === '_start' ? null : line, duration: 0 });
         k = prev[k];
       }
-      // Fill in durations from the graph
       for (let i = 1; i < path.length; i++) {
         const edge = (GRAPH[path[i - 1].stationId] || []).find(
           e => e.to === path[i].stationId && e.line === path[i].line
@@ -393,8 +353,6 @@ function dijkstra(sourceId, destId, excludeEdges = new Set()) {
     for (const edge of neighbors) {
       const edgeKey = `${current.stationId}->${edge.to}:${edge.line}`;
       if (excludeEdges.has(edgeKey)) continue;
-
-      // Transfer penalty: changing lines costs extra time
       const transferCost =
         current.line !== '_start' && current.line !== edge.line ? TRANSFER_PENALTY : 0;
       const newTime = current.time + edge.duration + transferCost;
@@ -408,7 +366,7 @@ function dijkstra(sourceId, destId, excludeEdges = new Set()) {
     }
   }
 
-  return null; // no path
+  return null;
 }
 
 /**
@@ -421,15 +379,11 @@ export function findRoutes(sourceId, destId) {
 
   const results = [];
   const excludeEdges = new Set();
-
-  // Find up to 3 routes, each time excluding core edges of the previous route
   for (let k = 0; k < 3; k++) {
     const path = dijkstra(sourceId, destId, excludeEdges);
     if (!path) break;
 
     const route = buildRoute(path);
-
-    // Check for duplicates (same sequence of lines)
     const lineSeq = route.segments.map(s => s.line).join(',');
     const isDuplicate = results.some(
       r => r.segments.map(s => s.line).join(',') === lineSeq
@@ -437,22 +391,15 @@ export function findRoutes(sourceId, destId) {
     if (!isDuplicate) {
       results.push(route);
     }
-
-    // Exclude middle edges of this path to force diversity on next iteration
     for (let i = 1; i < path.length - 1; i++) {
       const seg = path[i];
       const prev = path[i - 1];
       excludeEdges.add(`${prev.stationId}->${seg.stationId}:${seg.line}`);
     }
   }
-
-  // Sort: primary by total duration, secondary by fewer transfers
   results.sort((a, b) => a.totalDuration - b.totalDuration || a.transfers - b.transfers);
-
-  // Label the routes
   if (results.length > 0) results[0].label = 'Fastest';
   if (results.length > 1) {
-    // Find which is fewest transfers (if different from fastest)
     const fewestTransfers = [...results].sort((a, b) => a.transfers - b.transfers)[0];
     const fewestStops = [...results].sort((a, b) => a.totalStops - b.totalStops)[0];
     results.forEach(r => {
@@ -515,10 +462,6 @@ function calculateFare(stops) {
   if (stops <= 21) return 40;
   return 50;
 }
-
-// ==========================
-// Utility Exports
-// ==========================
 export function getStationById(id) {
   return STATIONS[id] || null;
 }
@@ -557,8 +500,6 @@ export function generateBookingRef() {
   }
   return ref;
 }
-
-// Version compatibility data for admin panel
 export const VERSION_MATRIX = {
   versions: ['v1.0', 'v1.1', 'v1.2', 'v2.0', 'v2.1', 'v3.0'],
   compatibility: {

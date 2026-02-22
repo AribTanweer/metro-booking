@@ -1,3 +1,7 @@
+/**
+ * AdminPage
+ * UI component for the Metro Booking application.
+ */
 import { useState } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
 import { List, Upload, Grid3X3 } from 'lucide-react';

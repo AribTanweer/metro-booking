@@ -1,3 +1,7 @@
+/**
+ * LineManager
+ * UI component for the Metro Booking application.
+ */
 import { useState } from 'react';
 import { ChevronDown, ChevronRight, GripVertical, Plus, X, AlertTriangle } from 'lucide-react';
 import { METRO_LINES, STATIONS } from '../../data/metroData';
@@ -25,8 +29,6 @@ export default function LineManager() {
     const toggleLine = (lineId) => {
         setExpandedLine(expandedLine === lineId ? null : lineId);
     };
-
-    // Drag and drop handlers
     const handleDragStart = (lineId, index) => {
         setDraggedItem({ lineId, index });
     };
@@ -63,8 +65,6 @@ export default function LineManager() {
         if (!newStationInput.trim()) return;
         const stationId = newStationInput.toLowerCase().replace(/\s+/g, '-');
         const name = newStationInput.trim();
-
-        // Check if this station exists on other lines (auto-detect interchange)
         const existsOnOtherLine = lines.some(
             l => l.id !== lineId && l.stations.some(s => s.id === stationId)
         );
@@ -80,8 +80,6 @@ export default function LineManager() {
                 }],
             };
         }));
-
-        // If it exists on another line, mark it as interchange there too
         if (existsOnOtherLine) {
             setLines(prev => prev.map(line => ({
                 ...line,
@@ -143,7 +141,7 @@ export default function LineManager() {
                                 </div>
                             ))}
 
-                            {/* Add station */}
+                            {}
                             {addingToLine === line.id ? (
                                 <div className="add-station-form">
                                     <input

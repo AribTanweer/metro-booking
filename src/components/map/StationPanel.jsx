@@ -1,3 +1,7 @@
+/**
+ * StationPanel
+ * UI component for the Metro Booking application.
+ */
 import { useNavigate } from 'react-router-dom';
 import { X, MapPin, ArrowRight, Accessibility, Car, DoorOpen, ChevronRight } from 'lucide-react';
 import './StationPanel.css';

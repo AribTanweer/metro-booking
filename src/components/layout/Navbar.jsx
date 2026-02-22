@@ -1,3 +1,7 @@
+/**
+ * Navbar
+ * UI component for the Metro Booking application.
+ */
 import { NavLink, useLocation } from 'react-router-dom';
 import { Map, Settings, Ticket, IndianRupee } from 'lucide-react';
 import MetroTrainIcon from '../ui/MetroTrainIcon';

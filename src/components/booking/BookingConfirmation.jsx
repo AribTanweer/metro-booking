@@ -1,3 +1,7 @@
+/**
+ * BookingConfirmation
+ * UI component for the Metro Booking application.
+ */
 import { useRef, useCallback } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Download, RotateCcw, ArrowLeft, CheckCircle, Clock, MapPin, Repeat, IndianRupee } from 'lucide-react';
@@ -7,23 +11,16 @@ export default function BookingConfirmation({ booking, onNewBooking, onBack }) {
     const ticketRef = useRef(null);
 
     const handleDownload = useCallback(() => {
-        // Create a canvas from the ticket for download
         const ticket = ticketRef.current;
         if (!ticket) return;
-
-        // Use html2canvas-like approach with SVG serialization
         const svg = ticket.querySelector('svg');
         if (svg) {
             const canvas = document.createElement('canvas');
             canvas.width = 400;
             canvas.height = 400;
             const ctx = canvas.getContext('2d');
-
-            // Draw white background
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, 400, 400);
-
-            // Draw booking info as text
             ctx.fillStyle = '#1C1B1F';
             ctx.font = 'bold 18px Inter, sans-serif';
             ctx.textAlign = 'center';
@@ -33,8 +30,6 @@ export default function BookingConfirmation({ booking, onNewBooking, onBack }) {
             ctx.fillText(`${booking.source.name} → ${booking.destination.name}`, 200, 60);
             ctx.fillText(`Ref: ${booking.ref}`, 200, 85);
             ctx.fillText(`Fare: ₹${booking.route.fare}`, 200, 110);
-
-            // Serialize and draw QR SVG
             const svgData = new XMLSerializer().serializeToString(svg);
             const img = new Image();
             img.onload = () => {

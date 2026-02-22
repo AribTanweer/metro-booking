@@ -1,3 +1,7 @@
+/**
+ * Toast
+ * UI component for the Metro Booking application.
+ */
 import { createContext, useContext, useState, useCallback, useRef } from 'react';
 import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
 import './Toast.css';
@@ -20,9 +24,7 @@ export function ToastProvider({ children }) {
         const id = ++toastId;
         setToasts(prev => [...prev, { id, message, type, exiting: false }]);
         timersRef.current[id] = setTimeout(() => {
-            // Trigger exit animation
             setToasts(prev => prev.map(t => t.id === id ? { ...t, exiting: true } : t));
-            // Remove after animation
             setTimeout(() => removeToast(id), 300);
         }, duration);
         return id;
@@ -33,8 +35,6 @@ export function ToastProvider({ children }) {
         error: (message, duration) => addToast({ message, type: 'error', duration }),
         info: (message, duration) => addToast({ message, type: 'info', duration }),
     }, [addToast]);
-
-    // Workaround: expose methods directly
     const api = useRef({ success: null, error: null, info: null });
     api.current.success = (msg, dur) => addToast({ message: msg, type: 'success', duration: dur });
     api.current.error = (msg, dur) => addToast({ message: msg, type: 'error', duration: dur });

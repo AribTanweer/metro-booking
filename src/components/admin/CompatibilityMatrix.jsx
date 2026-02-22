@@ -1,3 +1,7 @@
+/**
+ * CompatibilityMatrix
+ * UI component for the Metro Booking application.
+ */
 import { useState } from 'react';
 import { VERSION_MATRIX } from '../../data/metroData';
 import './CompatibilityMatrix.css';
@@ -90,7 +94,7 @@ export default function CompatibilityMatrix() {
                 </table>
             </div>
 
-            {/* Tooltip */}
+            {}
             {tooltip && (
                 <div
                     className="matrix-tooltip"

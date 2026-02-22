@@ -1,3 +1,7 @@
+/**
+ * BulkImport
+ * UI component for the Metro Booking application.
+ */
 import { useState, useRef } from 'react';
 import { Upload, FileText, Check, AlertTriangle, X, Loader } from 'lucide-react';
 import './BulkImport.css';
@@ -27,8 +31,6 @@ export default function BulkImport() {
                     setErrors([{ type: 'error', message: 'Unsupported file format. Use .csv or .json.' }]);
                     return;
                 }
-
-                // Validate
                 const validationErrors = validateData(data);
                 setErrors(validationErrors);
                 setPreview(data);
@@ -104,8 +106,6 @@ export default function BulkImport() {
 
         setImporting(true);
         setProgress(0);
-
-        // Simulate import progress
         const interval = setInterval(() => {
             setProgress(prev => {
                 if (prev >= 100) {
@@ -143,7 +143,7 @@ export default function BulkImport() {
 
     return (
         <div className="bulk-import animate-fade-in">
-            {/* Upload zone */}
+            {}
             {!preview && (
                 <div
                     className={`upload-zone ${isDragOver ? 'upload-zone-active' : ''}`}
@@ -165,7 +165,7 @@ export default function BulkImport() {
                 </div>
             )}
 
-            {/* Preview */}
+            {}
             {preview && !importing && (
                 <div className="import-preview">
                     <div className="preview-header">
@@ -180,7 +180,7 @@ export default function BulkImport() {
                         </button>
                     </div>
 
-                    {/* Errors */}
+                    {}
                     {errors.length > 0 && (
                         <div className="validation-errors">
                             {errors.map((err, idx) => (
@@ -192,7 +192,7 @@ export default function BulkImport() {
                         </div>
                     )}
 
-                    {/* Preview table */}
+                    {}
                     <div className="preview-table-wrapper">
                         <table className="preview-table">
                             <thead>
@@ -233,7 +233,7 @@ export default function BulkImport() {
                 </div>
             )}
 
-            {/* Progress */}
+            {}
             {importing && (
                 <div className="import-progress animate-fade-in">
                     <Loader size={24} className="spin-icon" />

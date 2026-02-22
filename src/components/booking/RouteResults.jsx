@@ -1,3 +1,7 @@
+/**
+ * RouteResults
+ * UI component for the Metro Booking application.
+ */
 import { useState } from 'react';
 import { Clock, ArrowRight, Repeat, ChevronDown, ChevronUp, MapPin, AlertCircle, Map, BarChart3, List } from 'lucide-react';
 import { getStationById } from '../../data/metroData';
@@ -5,7 +9,7 @@ import './RouteResults.css';
 
 export default function RouteResults({ routes, selectedRoute, onSelectRoute, onConfirm, onViewOnMap, source, destination }) {
     const [expandedAlt, setExpandedAlt] = useState(false);
-    const [viewMode, setViewMode] = useState('list'); // 'list' or 'compare'
+    const [viewMode, setViewMode] = useState('list');
 
     if (!routes || routes.length === 0) {
         return (
@@ -21,8 +25,6 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
 
     const recommended = routes[0];
     const alternatives = routes.slice(1);
-
-    // Stats for comparison bars (normalize to max across all routes)
     const maxStops = Math.max(...routes.map(r => r.totalStops));
     const maxDuration = Math.max(...routes.map(r => r.totalDuration));
     const maxFare = Math.max(...routes.map(r => r.fare));
@@ -57,10 +59,10 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
                 </div>
             </div>
 
-            {/* ===== COMPARISON VIEW ===== */}
+            {}
             {viewMode === 'compare' && routes.length > 1 ? (
                 <div className="comparison-view animate-fade-in">
-                    {/* Comparison header */}
+                    {}
                     <div className="comparison-grid" style={{ '--col-count': routes.length }}>
                         {routes.map((route, idx) => (
                             <div
@@ -68,7 +70,7 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
                                 className={`comparison-col ${selectedRoute === route ? 'comparison-col-selected' : ''}`}
                                 onClick={() => onSelectRoute(route)}
                             >
-                                {/* Route label */}
+                                {}
                                 <div className="comparison-col-header">
                                     <span className="comparison-route-label">
                                         {route.label === "Fastest" ? `★ ${route.label}` : route.label || `Option ${idx + 1}`}
@@ -78,13 +80,13 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
                                     )}
                                 </div>
 
-                                {/* Fare highlight */}
+                                {}
                                 <div className="comparison-fare">
                                     <span className="comparison-fare-currency">₹</span>
                                     <span className="comparison-fare-amount">{route.fare}</span>
                                 </div>
 
-                                {/* Stats bars */}
+                                {}
                                 <div className="comparison-stats">
                                     <ComparisonBar
                                         icon={<MapPin size={12} />}
@@ -113,7 +115,7 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
                                     />
                                 </div>
 
-                                {/* Line sequence */}
+                                {}
                                 <div className="comparison-lines">
                                     {route.segments.map((seg, si) => (
                                         <span key={si} className="comparison-line-chip">
@@ -123,7 +125,7 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
                                     ))}
                                 </div>
 
-                                {/* Select button */}
+                                {}
                                 <button
                                     className={`btn btn-sm ${selectedRoute === route ? 'btn-primary' : 'btn-outline'}`}
                                     style={{ width: '100%', marginTop: 'auto' }}
@@ -136,8 +138,7 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
                     </div>
                 </div>
             ) : (
-                /* ===== LIST VIEW (original) ===== */
-                <>
+                                <>
                     <RouteCard
                         route={recommended}
                         isRecommended
@@ -197,7 +198,6 @@ export default function RouteResults({ routes, selectedRoute, onSelectRoute, onC
     );
 }
 
-/* ---- Comparison Bar ---- */
 function ComparisonBar({ icon, label, value, max, unit = '', color, isBest }) {
     const pct = max > 0 ? (value / max) * 100 : 0;
     return (
@@ -220,7 +220,6 @@ function ComparisonBar({ icon, label, value, max, unit = '', color, isBest }) {
     );
 }
 
-/* ---- Route Card (original list view) ---- */
 function RouteCard({ route, isRecommended, isSelected, onSelect }) {
     return (
         <div

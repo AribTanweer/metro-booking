@@ -1,9 +1,11 @@
+/**
+ * MetroMap
+ * UI component for the Metro Booking application.
+ */
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 import { METRO_LINES, STATIONS } from '../../data/metroData';
 import './MetroMap.css';
-
-// Key stations whose labels are always visible
 const LABEL_STATIONS = new Set([
     'kashmere-gate', 'rajiv-chowk', 'central-secretariat', 'hauz-khas',
     'mandi-house', 'new-delhi', 'huda-city-centre', 'dwarka',
@@ -13,16 +15,9 @@ const LABEL_STATIONS = new Set([
     'brigadier-hoshiar-singh',
 ]);
 
-/*
- * Per-station label placement to avoid collisions with lines.
- *
- * Directions: 'right' (default), 'left', 'above', 'below',
- *             'above-right', 'above-left', 'below-right', 'below-left'
- */
 const LABEL_ANCHORS = {
-    // === YELLOW (vertical) — labels right by default, but some go left ===
     'samaypur-badli': 'right',
-    'ghitorni': 'left',   // interchange area
+    'ghitorni': 'left',
     'arjan-garh': 'left',
     'huda-city-centre': 'left',
     'vishwavidyalaya': 'above-right',
@@ -41,12 +36,10 @@ const LABEL_ANCHORS = {
     'ina': 'left',
     'aiims': 'left',
     'green-park': 'left',
-    'hauz-khas': 'left',   // interchange — line runs right
+    'hauz-khas': 'left',
     'malviya-nagar': 'left',
     'saket': 'left',
     'qutab-minar': 'left',
-
-    // === BLUE (horizontal y=440) — labels go ABOVE or BELOW ===
     'noida-electronic-city': 'right',
     'noida-sector-62': 'above',
     'noida-sector-59': 'below',
@@ -73,15 +66,11 @@ const LABEL_ANCHORS = {
     'ramesh-nagar': 'above',
     'rajouri-garden': 'below',
     'tagore-garden': 'above',
-
-    // Blue line turns vertical here
     'subhash-nagar': 'left',
     'tilak-nagar': 'left',
     'janakpuri-east': 'left',
     'janakpuri-west': 'left',
     'dwarka': 'left',
-
-    // === RED (horizontal y=280) — labels ABOVE or BELOW ===
     'shaheed-sthal': 'right',
     'hindon-river': 'above',
     'arthala': 'below',
@@ -110,8 +99,6 @@ const LABEL_ANCHORS = {
     'rohini-east': 'above',
     'rohini-west': 'below',
     'rithala': 'above',
-
-    // === GREEN (diagonal then vertical) ===
     'inderlok-green': 'right',
     'ashok-park-main': 'left',
     'punjabi-bagh': 'left',
@@ -133,8 +120,6 @@ const LABEL_ANCHORS = {
     'pandit-shree-ram-sharma': 'left',
     'bahadurgarh-city': 'left',
     'brigadier-hoshiar-singh': 'left',
-
-    // === VIOLET (mostly vertical/diagonal) ===
     'kashmere-gate-violet': 'above-right',
     'lal-quila': 'right',
     'jama-masjid': 'right',
@@ -150,8 +135,6 @@ const LABEL_ANCHORS = {
     'nehru-place': 'right',
     'greater-kailash': 'right',
     'govindpuri': 'right',
-
-    // Violet turns horizontal at bottom
     'harkesh-nagar-okhla': 'below',
     'jasola-apollo': 'above',
     'sarita-vihar': 'below',
@@ -167,8 +150,6 @@ const LABEL_ANCHORS = {
     'neelam-chowk-ajronda': 'above',
     'escorts-mujesar': 'below',
     'raja-nahar-singh': 'right',
-
-    // === MAGENTA (diagonal NW-SE, then horizontal at y=840) ===
     'dabri-mor': 'right',
     'dashrathpuri': 'right',
     'palam': 'right',
@@ -232,8 +213,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const [tooltip, setTooltip] = useState(null);
 
-    /* ---------- zoom / pan handlers ---------- */
-    const handleZoom = useCallback((delta) => {
+        const handleZoom = useCallback((delta) => {
         setZoom(z => Math.min(4, Math.max(0.3, z + delta)));
     }, []);
 
@@ -262,8 +242,6 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         el.addEventListener('wheel', handleWheel, { passive: false });
         return () => el.removeEventListener('wheel', handleWheel);
     }, [handleWheel]);
-
-    // Zoom + pan to focused station from search
     useEffect(() => {
         if (!focusedStation || !wrapperRef.current) return;
         const pos = STATIONS[focusedStation.id]?.position;
@@ -284,8 +262,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         setZoom(targetZoom);
     }, [focusedStation]);
 
-    /* ---------- highlight helpers ---------- */
-    const highlightedStations = new Set();
+        const highlightedStations = new Set();
     const highlightedLines = new Set();
     if (highlightedRoute) {
         highlightedRoute.segments.forEach(seg => {
@@ -294,8 +271,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         });
     }
 
-    /* ---------- build the animated route path ---------- */
-    const routeOverlay = useMemo(() => {
+        const routeOverlay = useMemo(() => {
         if (!highlightedRoute) return null;
 
         const routePoints = [];
@@ -348,8 +324,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         return { routePoints, fullPath: d, segmentPaths };
     }, [highlightedRoute]);
 
-    /* ---------- helper: render a station label ---------- */
-    const renderLabel = (station, x, y, isMajor, isInterchange, opacity) => {
+        const renderLabel = (station, x, y, isMajor, isInterchange, opacity) => {
         const anchor = LABEL_ANCHORS[station.id] || 'right';
         const { dx, dy, textAnchor } = getLabelOffset(anchor, isInterchange);
         return (
@@ -368,8 +343,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         );
     };
 
-    /* ---------- build polylines per line ---------- */
-    const renderLines = () =>
+        const renderLines = () =>
         Object.entries(METRO_LINES).map(([lineId, line]) => {
             const points = line.stations
                 .map(sid => STATIONS[sid]?.position)
@@ -403,8 +377,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
             );
         });
 
-    /* ---------- render animated route overlay ---------- */
-    const renderRouteOverlay = () => {
+        const renderRouteOverlay = () => {
         if (!routeOverlay) return null;
 
         return (
@@ -469,16 +442,13 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         );
     };
 
-    /* ---------- render stations ---------- */
-    const renderStations = () =>
+        const renderStations = () =>
         Object.values(STATIONS).map(station => {
             const { x, y } = station.position;
             const isInterchange = station.isInterchange;
             const isDimmed = highlightedRoute && !highlightedStations.has(station.id);
             const isMajor = LABEL_STATIONS.has(station.id) || isInterchange;
             const labelOpacity = isDimmed ? 0.12 : (isMajor ? 0.9 : 0.7);
-
-            // When route is highlighted, route overlay handles station markers
             if (highlightedRoute && highlightedStations.has(station.id)) {
                 return (
                     <g
@@ -559,8 +529,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
             );
         });
 
-    /* ---------- line legend ---------- */
-    const renderLegend = () => (
+        const renderLegend = () => (
         <div className="map-legend" role="complementary" aria-label="Metro line legend">
             {Object.values(METRO_LINES).map(line => (
                 <div className="legend-row" key={line.id}>

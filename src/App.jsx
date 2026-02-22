@@ -1,3 +1,7 @@
+/**
+ * App
+ * UI component for the Metro Booking application.
+ */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastProvider } from './components/ui/Toast';
 import Navbar from './components/layout/Navbar';

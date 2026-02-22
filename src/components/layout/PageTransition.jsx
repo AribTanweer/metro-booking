@@ -1,3 +1,7 @@
+/**
+ * PageTransition
+ * UI component for the Metro Booking application.
+ */
 import { useRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './PageTransition.css';
