@@ -4,10 +4,11 @@
  */
 import { useState } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
-import { List, Upload, Grid3X3 } from 'lucide-react';
+import { List, Upload, Grid3X3, LogOut } from 'lucide-react';
 import LineManager from '../components/admin/LineManager';
 import BulkImport from '../components/admin/BulkImport';
 import CompatibilityMatrix from '../components/admin/CompatibilityMatrix';
+import { useAuth } from '../components/auth/AuthContext';
 import './AdminPage.css';
 
 export default function AdminPage() {
@@ -17,11 +18,19 @@ export default function AdminPage() {
         { to: '/admin/compatibility', label: 'Compatibility', icon: Grid3X3 },
     ];
 
+    const { logout } = useAuth();
+
     return (
         <div className="admin-page">
             <div className="admin-header">
-                <h1>Network Management</h1>
-                <p className="text-secondary">Manage metro lines, stations, and data imports</p>
+                <div>
+                    <h1>Network Management</h1>
+                    <p className="text-secondary">Manage metro lines, stations, and data imports</p>
+                </div>
+                <button onClick={logout} className="btn btn-outline btn-sm">
+                    <LogOut size={16} />
+                    Logout
+                </button>
             </div>
 
             <div className="admin-tabs">
