@@ -213,7 +213,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const [tooltip, setTooltip] = useState(null);
 
-        const handleZoom = useCallback((delta) => {
+    const handleZoom = useCallback((delta) => {
         setZoom(z => Math.min(4, Math.max(0.3, z + delta)));
     }, []);
 
@@ -248,21 +248,31 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         if (!pos) return;
         const wrapper = wrapperRef.current;
         const rect = wrapper.getBoundingClientRect();
-        const targetZoom = 2;
-        const vbWidth = 1500, vbHeight = 1380;
+
+        const targetZoom = 2.5;
+        const vbWidth = 1500;
+        const vbHeight = 1380;
+        // The viewBox starts at -20, so center is (-20 + 1500/2) and (-20 + 1380/2)
+        const cx = 730;
+        const cy = 670;
+
         const scaleX = rect.width / vbWidth;
         const scaleY = rect.height / vbHeight;
         const scale = Math.min(scaleX, scaleY);
-        const px = (pos.x + 20) * scale * targetZoom;
-        const py = (pos.y + 20) * scale * targetZoom;
+
+        // CSS transform-origin is center center. 
+        // Thus, scale() expands from the element's center.
+        const dx = pos.x - cx;
+        const dy = pos.y - cy;
+
         setPan({
-            x: rect.width / 2 - px,
-            y: rect.height / 2 - py,
+            x: -dx * scale * targetZoom,
+            y: -dy * scale * targetZoom,
         });
         setZoom(targetZoom);
     }, [focusedStation]);
 
-        const highlightedStations = new Set();
+    const highlightedStations = new Set();
     const highlightedLines = new Set();
     if (highlightedRoute) {
         highlightedRoute.segments.forEach(seg => {
@@ -271,7 +281,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         });
     }
 
-        const routeOverlay = useMemo(() => {
+    const routeOverlay = useMemo(() => {
         if (!highlightedRoute) return null;
 
         const routePoints = [];
@@ -324,7 +334,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         return { routePoints, fullPath: d, segmentPaths };
     }, [highlightedRoute]);
 
-        const renderLabel = (station, x, y, isMajor, isInterchange, opacity) => {
+    const renderLabel = (station, x, y, isMajor, isInterchange, opacity) => {
         const anchor = LABEL_ANCHORS[station.id] || 'right';
         const { dx, dy, textAnchor } = getLabelOffset(anchor, isInterchange);
         return (
@@ -343,7 +353,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         );
     };
 
-        const renderLines = () =>
+    const renderLines = () =>
         Object.entries(METRO_LINES).map(([lineId, line]) => {
             const points = line.stations
                 .map(sid => STATIONS[sid]?.position)
@@ -377,7 +387,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
             );
         });
 
-        const renderRouteOverlay = () => {
+    const renderRouteOverlay = () => {
         if (!routeOverlay) return null;
 
         return (
@@ -442,7 +452,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
         );
     };
 
-        const renderStations = () =>
+    const renderStations = () =>
         Object.values(STATIONS).map(station => {
             const { x, y } = station.position;
             const isInterchange = station.isInterchange;
@@ -529,7 +539,7 @@ export default function MetroMap({ onStationClick, highlightedRoute, focusedStat
             );
         });
 
-        const renderLegend = () => (
+    const renderLegend = () => (
         <div className="map-legend" role="complementary" aria-label="Metro line legend">
             {Object.values(METRO_LINES).map(line => (
                 <div className="legend-row" key={line.id}>
