@@ -20,6 +20,7 @@ export default function MapPage() {
     const [routeInfo, setRouteInfo] = useState(null);
     const [focusedStation, setFocusedStation] = useState(null);
     const [bookingSource, setBookingSource] = useState(null);
+    const [bookingDestination, setBookingDestination] = useState(null);
     useEffect(() => {
         if (location.state?.highlightedRoute) {
             setHighlightRoute(location.state.highlightedRoute);
@@ -45,25 +46,37 @@ export default function MapPage() {
 
     const handleStationClick = useCallback((station) => {
         if (bookingSource) {
-            // User selected destination
             if (station.id === bookingSource.id) {
                 toast.error("Destination must be different from source");
                 return;
             }
             navigate('/', { state: { source: bookingSource, destination: station } });
+        } else if (bookingDestination) {
+            if (station.id === bookingDestination.id) {
+                toast.error("Source must be different from destination");
+                return;
+            }
+            navigate('/', { state: { source: station, destination: bookingDestination } });
         } else {
             setSelectedStation(station);
         }
-    }, [bookingSource, navigate, toast]);
+    }, [bookingSource, bookingDestination, navigate, toast]);
 
     const handleBookFromMap = useCallback((station) => {
         setBookingSource(station);
-        setSelectedStation(null); // hide panel to let user click the map
+        setSelectedStation(null);
         toast.info(`Select destination station on the map`);
+    }, [toast]);
+
+    const handleBookToMap = useCallback((station) => {
+        setBookingDestination(station);
+        setSelectedStation(null);
+        toast.info(`Select source station on the map`);
     }, [toast]);
 
     const handleCancelBookingMode = () => {
         setBookingSource(null);
+        setBookingDestination(null);
     };
 
     return (
@@ -111,7 +124,7 @@ export default function MapPage() {
                 </div>
             )}
 
-            {bookingSource && !routeInfo && (
+            {bookingSource && !routeInfo && !bookingDestination && (
                 <div className="map-route-banner animate-fade-in" style={{ borderColor: 'var(--primary)', borderLeft: '4px solid var(--primary)' }}>
                     <div className="banner-info">
                         <span className="banner-label" style={{ color: 'var(--primary)' }}>Booking Mode</span>
@@ -130,11 +143,31 @@ export default function MapPage() {
                 </div>
             )}
 
-            {selectedStation && !bookingSource && (
+            {bookingDestination && !routeInfo && !bookingSource && (
+                <div className="map-route-banner animate-fade-in" style={{ borderColor: 'var(--primary)', borderLeft: '4px solid var(--primary)' }}>
+                    <div className="banner-info">
+                        <span className="banner-label" style={{ color: 'var(--primary)' }}>Booking Mode</span>
+                        <span className="banner-route">
+                            To: {bookingDestination.name}
+                        </span>
+                        <span className="banner-meta">
+                            Please select a source station on the map...
+                        </span>
+                    </div>
+                    <div className="banner-actions">
+                        <button className="btn btn-outline btn-sm" onClick={handleCancelBookingMode}>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {selectedStation && !bookingSource && !bookingDestination && (
                 <StationPanel
                     station={selectedStation}
                     onClose={() => setSelectedStation(null)}
                     onBookFrom={handleBookFromMap}
+                    onBookTo={handleBookToMap}
                 />
             )}
         </div>

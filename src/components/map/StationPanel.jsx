@@ -13,7 +13,7 @@ const FACILITY_ICONS = {
     exits: { icon: DoorOpen, label: 'Multiple Exits' },
 };
 
-export default function StationPanel({ station, onClose, onBookFrom }) {
+export default function StationPanel({ station, onClose, onBookFrom, onBookTo }) {
     const navigate = useNavigate();
 
     const handleBookFrom = () => {
@@ -25,7 +25,11 @@ export default function StationPanel({ station, onClose, onBookFrom }) {
     };
 
     const handleBookTo = () => {
-        navigate('/', { state: { destination: station } });
+        if (onBookTo) {
+            onBookTo(station);
+        } else {
+            navigate('/', { state: { destination: station } });
+        }
     };
 
     return (
